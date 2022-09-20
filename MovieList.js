@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { FlatList } from "react-native";
 
-const api_key = "961df8cdcd64067ee9b98dfffd750c77";
-
-const url = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`
-
 const image_url = "https://image.tmdb.org/t/p/w500";
 
 export default function MovieList({ navigation , type , url }){
     
-    const [data, setData] = useState([]);
+    const [movieData, setMovieData] = useState([]);
 
     useEffect(() => {
         fetchMovies();
@@ -21,15 +17,15 @@ export default function MovieList({ navigation , type , url }){
 
     async function fetchMovies(){
         const response = await fetch(
-            `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`
+            url
             ).then((response) => response.json())
-            .then((data) => setData(data.results));
+            .then((data) => setMovieData(data.results));
         }
 
         const renderItem = ({ item }) => (
             <Movie navigation={navigation} movieId={item.id} title={item.title} imageurl={item.poster_path} voteAvg={item.vote_average} />
           );
-          console.log(data);
+          console.log(movieData);
           
     return (
         <View style={styles.container}>
@@ -37,7 +33,7 @@ export default function MovieList({ navigation , type , url }){
             <Text style={styles.headline}>{type}</Text>
             <FlatList
                 horizontal
-                data={data}
+                data={movieData}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 style={styles.movieList}
