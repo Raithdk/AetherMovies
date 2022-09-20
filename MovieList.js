@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { FlatList } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const image_url = "https://image.tmdb.org/t/p/w500";
 
-export default function MovieList({ navigation , type , url }){
+export default function MovieList({ type , url }){
     
     const [movieData, setMovieData] = useState([]);
 
@@ -23,13 +25,11 @@ export default function MovieList({ navigation , type , url }){
         }
 
         const renderItem = ({ item }) => (
-            <Movie navigation={navigation} movieId={item.id} title={item.title} imageurl={item.poster_path} voteAvg={item.vote_average} />
+            <Movie movieId={item.id} title={item.title} imageurl={item.poster_path} voteAvg={item.vote_average} />
           );
-          console.log(movieData);
           
     return (
         <View style={styles.container}>
-        
             <Text style={styles.headline}>{type}</Text>
             <FlatList
                 horizontal
@@ -38,21 +38,20 @@ export default function MovieList({ navigation , type , url }){
                 keyExtractor={(item) => item.id}
                 style={styles.movieList}
             />
-            
         </View>
-
-        
     )
 
 }
 
-const Movie = ({ navigation, title, movieId, imageurl, voteAvg }) => (
-    <View style={styles.movie}>
+const Movie = ( {title, movieId, imageurl, voteAvg }) => 
+    {
+        const navigation = useNavigation();
+        return (
+    <TouchableOpacity style={styles.movieView} 
+        onPress={() => navigation.navigate("MovieDetails", {movieId})}>
         <Image style={styles.poster}  source={{uri: image_url+imageurl}} >
             </Image>
         <Text
-            onPress={() =>
-            navigation.navigate("Details", {movieId})}
             style={styles.title}
         >
             {title}
@@ -60,8 +59,8 @@ const Movie = ({ navigation, title, movieId, imageurl, voteAvg }) => (
         <Text>
             Rating: {voteAvg} / 10
         </Text>
-    </View>
-  );
+    </TouchableOpacity>
+  )};
 
   
 
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 300,
     },
-    movie: {
+    movieView: {
         alignItems: "center",
         justifyContent: "center",
         margin: 20,

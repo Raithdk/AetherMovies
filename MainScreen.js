@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image } from 'react-native';
+
+import { View } from 'react-native';
 
 import MovieList from "./MovieList";
 
@@ -21,8 +21,8 @@ export default function MainScreen(navigation){
             />
             <MovieList 
             navigation={navigation} 
-            type="Upcoming" 
-            url={`https://api.themoviedb.org/3/movie/upcoming?api_key=${api_key}&language=en-US&page=1`}
+            type="Now Playing" 
+            url={`https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}&language=en-US`}
             />
         </View>
     );
