@@ -1,5 +1,6 @@
 
 import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import MovieList from "./MovieList";
 
@@ -9,21 +10,23 @@ export default function MainScreen(navigation){
 
     return (
         <View>
-            <MovieList 
-            navigation={navigation} 
-            type="Popular Movies" 
-            url={`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`}
-            />
-            <MovieList 
-            navigation={navigation} 
-            type="Top Rated" 
-            url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=1`}
-            />
-            <MovieList 
-            navigation={navigation} 
-            type="Now Playing" 
-            url={`https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}&language=en-US`}
-            />
+            <ScrollView>
+                <MovieList 
+                navigation={navigation} 
+                type="Popular Movies" 
+                url={`https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US&page=1`}
+                />
+                <MovieList 
+                navigation={navigation} 
+                type="Top Rated" 
+                url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=1`}
+                />
+                <MovieList 
+                navigation={navigation} 
+                type="Now Playing" 
+                url={`https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}&language=en-US`}
+                />
+            </ScrollView>
         </View>
     );
 
