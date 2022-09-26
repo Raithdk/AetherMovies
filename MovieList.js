@@ -73,7 +73,6 @@ const Movie = ( {title, movieID, imageurl, voteAvg }) =>
             </TouchableOpacity>
   )};
 
-  
 
 const styles = StyleSheet.create({
     container:{
@@ -86,7 +85,6 @@ const styles = StyleSheet.create({
         padding: 10,
         width: 500
     },
-
     sortButton: {
         elevation: 4,
         backgroundColor: "#009688",
